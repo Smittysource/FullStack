@@ -1,7 +1,12 @@
 const index = (req, res) => {
-    res.render('index', {title: 'Travlr Getaways'});
-}
+    pageTitle = process.env.npm_package_description + ' - Main';
+    res.render('index', {
+        title: pageTitle,
+        active_nav: {
+            index: true
+        }});
+};
 
 module.exports = {
     index
-}
+};
