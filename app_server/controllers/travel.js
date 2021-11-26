@@ -4,18 +4,6 @@ const apiOptions = {
     server: 'http://localhost:3000'
 }
 
-/* GET traveler view */
-/*const travel = (req, res) => {
-    pageTitle = process.env.npm_package_description + ' - Travel';
-    res.render('travel', {
-        title: pageTitle,
-        trips,
-        active_nav: {
-            travel: true
-        }});
-};
-*/
-
 /* render travel list view */
 const renderTravelList = (req, res, responseBody) => {
     let message = null;
