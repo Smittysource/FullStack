@@ -1,3 +1,4 @@
+const e = require('express');
 const mongoose = require('mongoose');
 const model = mongoose.model('trips');
 
@@ -27,6 +28,7 @@ const tripsList = async (req, res) => {
 
 // GET: /trips/:tripCode - returns a single trip
 const tripsFindCode = async (req, res) => {
+    console.log('tripsFindCode invoked with ' + req.params.tripCode);
     model
         .find({'code': req.params.tripCode})   // find specific trip by code field
         .exec((err, trips) => {
@@ -49,7 +51,87 @@ const tripsFindCode = async (req, res) => {
         });
 };
 
+const tripsAddTrip = async(req, res) => {
+    model
+        .create({
+            code: req.body.code,
+            name: req.body.name,
+            length: req.body.length,
+            start: req.body.start,
+            resort: req.body.resort,
+            perPerson: req.body.perPerson,
+            image: req.body.image,
+            description: req.body.description
+        },
+        (err, trip) => {
+            if(err) {
+                return res
+                    .status(400) // bad request, invalid content
+                    .json(err);
+            } else {
+                return res
+                    .status(201) // created
+                    .json(trip);
+            }
+        });
+}
+
+const tripsUpdateTrip = async(req, res) => {
+    console.log(req.body);
+    model
+        .findOneAndUpdate({ 'code': req.params.tripCode}, {
+            code: req.body.code,
+            name: req.body.name,
+            length: req.body.length,
+            start: req.body.start,
+            resort: req.body.resort,
+            perPerson: req.body.perPerson,
+            image: req.body.image,
+            description: req.body.description                
+        }, {new: true })
+        .then(trip => {
+            if(!trip) {
+                return res
+                    .status(404)
+                    .send({message: "Trip not found with code " + req.params.tripCode
+                });
+            }
+            res.send(trip);
+        }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res
+                    .status(404)
+                    .send({
+                        message: "Trip not found with code " + req.params.tripCode
+                    });
+            }
+            return res
+                .status(500) // server error
+                .json(err);
+        });
+}
+
+const tripsDeleteTrip = async(req, res) => {
+    console.log(req.body);
+    model
+        .findOneAndDelete({'code': req.params.tripCode
+        },(err, trip) => {
+            if(err) {
+                return res
+                    .status(400) // bad request, invalid content
+                    .json(err);
+            } else {
+                return res
+                    .status(200) // created
+                    .json(trip);
+            }
+        });
+}
+
 module.exports = {
     tripsList,
-    tripsFindCode
+    tripsFindCode,
+    tripsAddTrip,
+    tripsUpdateTrip,
+    tripsDeleteTrip
 };
