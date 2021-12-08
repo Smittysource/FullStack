@@ -1,3 +1,4 @@
+const { connect } = require('mongoose');
 const mongoose = require('mongoose');
 let dbURI = 'mongodb://localhost/travlr';
 if (process.env.NODE_ENV === 'production') {
@@ -41,4 +42,6 @@ process.on('SIGTERM', () => {
   });
 });
 
+
 require('./travlr');
+require('./user');

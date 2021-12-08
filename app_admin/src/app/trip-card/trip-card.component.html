@@ -8,7 +8,7 @@
     <p class="card-text" [innerHTML]="trip.description"></p> 
   </div>
   <div>
-    <div style='float: left; margin-left:15px; margin-bottom: 10px'><button (click)="editTrip(trip)" class="btn btn-info">Edit</button></div>
-    <div style='float: right; margin-right:15px; margin-bottom: 10px'><button (click)="deleteTrip(trip)" class="btn btn-info">Delete</button></div>
+    <div  *ngIf="isLoggedIn()" style='float: left; margin-left:15px; margin-bottom: 10px'><button (click)="editTrip(trip)" class="btn btn-info">Edit</button></div>
+    <div  *ngIf="isLoggedIn()" style='float: right; margin-right:15px; margin-bottom: 10px'><button (click)="deleteTrip(trip)" class="btn btn-info">Delete</button></div>
   </div>
 </div>
