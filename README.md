@@ -1,5 +1,5 @@
-# CS465-FullStack
-CS-465 Full Stack Development with MEAN
+# FullStack
+Full Stack Development with MEAN
 
 This project builds a full stack MEAN application with Express and Handlebars used for the customer facing site while an Angular Single Page Application is used for the administrative site. The SPA loads the full site when the user loads the website, which can cause delays in loading, but reduces the amount of requests sent to the backend server as the user is using the site. The initial delay results in an overall faster user experience as the site is navigated. The Express client site loads each page more quickly, but results in more requests and loads each page as it is requested.
 
